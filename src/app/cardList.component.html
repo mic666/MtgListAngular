@@ -1,0 +1,32 @@
+<p-table #dt [value]="cards" [rowHover]="true" dataKey="id"
+[rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,50,150,500]"
+[globalFilterFields]="['id','name']" [loading]="loading"
+ [paginator]="true" styleClass="p-datatable-sm p-datatable-striped">
+ <ng-template pTemplate="caption">
+  <div class="flex">
+    <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(dt)"></button>
+      <span class="p-input-icon-left ml-auto">
+          <i class="pi pi-search"></i>
+          <input pInputText type="text" (input)="applyFilterGlobal($event, 'contains')" placeholder="Search keyword" />
+      </span>
+  </div>
+</ng-template>
+  <ng-template pTemplate="header">
+      <tr>
+          <th>img</th>
+          <th>id</th>
+          <th>name</th>
+          <th>NumberOwned</th>
+          <th>layout</th>
+      </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-card>
+      <tr>
+          <td><a href={{getScryfallUrl(card)}} target="_blank" rel="noopener noreferrer"><img src={{card.imgUrl}} alt={{getScryfallUrl(card)}}></a></td>
+          <td>{{card.id}}</td>
+          <td>{{card.name}}</td>
+          <td>{{card.numberOwned}}</td>
+          <td>{{card.layout}}</td>
+      </tr>
+  </ng-template>
+</p-table>
