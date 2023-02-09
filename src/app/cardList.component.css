@@ -1,0 +1,10 @@
+.p-inputtext-editCard {
+  display: block;
+  margin-top: 10px;
+  margin-bottom: 25px;
+}
+
+
+.p-field * {
+  display: block;
+}

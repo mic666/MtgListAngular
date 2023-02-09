@@ -4,9 +4,13 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { cardListComponent } from './cardList.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {TableModule} from 'primeng/table';
-import {InputTextModule} from 'primeng/inputtext';
-import {ButtonModule} from 'primeng/button';
+import { TableModule } from 'primeng/table';
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
+import { TabViewModule } from 'primeng/tabview';
+import {ToastModule} from 'primeng/toast';
+import { FormsModule } from '@angular/forms';
+import {RippleModule} from 'primeng/ripple';
 
 @NgModule({
   declarations: [
@@ -17,11 +21,14 @@ import {ButtonModule} from 'primeng/button';
     HttpClientModule,
     TableModule,
     ButtonModule,
+    FormsModule,
+    TabViewModule,
+    ToastModule,
+    RippleModule,
     InputTextModule,
     BrowserAnimationsModule
   ],
-  providers: [],
   bootstrap: [cardListComponent]
 })
 export class AppModule {
- }
+}
