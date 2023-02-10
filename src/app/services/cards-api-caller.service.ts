@@ -2,16 +2,20 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { take } from 'rxjs';
 import { MtgCard } from '../utils/MtgCard';
+import { ScryfallCard } from '../utils/ScryfallCard';
 
 @Injectable({ providedIn: 'root' })
 export class CardsApiCallerService {
-  private serverApi = 'http://mic66688.synology.me:8080/';
-  constructor(private cardsRestApi: HttpClient) { }
+  private serverUrl = 'http://mic66688.synology.me:8080/';
+  private localHostUrl = 'http://localhost:8080/';
+  private scryfallUrl = 'https://api.scryfall.com/cards/';
+  private specialLayout: Array<string> = ['transform', 'modal_dfc']
+  constructor(private apiCaller: HttpClient) { }
 
   getAllCards() {
     let apiParams = new HttpParams().set('format', 'json');
-    return this.cardsRestApi
-      .get<MtgCard[]>(this.serverApi + 'cards', {
+    return this.apiCaller
+      .get<MtgCard[]>(this.localHostUrl + 'cards', {
         observe: 'body',
         responseType: 'json',
         params: apiParams,
@@ -22,8 +26,42 @@ export class CardsApiCallerService {
   updateCard(cardId: string, numberOwned: string) {
     let apiParams = new HttpParams().set('numberOwned', numberOwned);
     console.log(apiParams.get('numberOwned'))
-    return this.cardsRestApi.put(this.serverApi + 'card/' + cardId, {},
-      { responseType: 'text',params: apiParams }).pipe(take(1))
+    console.log(apiParams.get('numberOwned'))
+    return this.apiCaller.put(this.localHostUrl + 'card/' + cardId, {},
+      { responseType: 'text', params: apiParams }).pipe(take(1))
+  }
+
+  getCardFromScryfall(cardId: string, cardSet: string, numberOwned: string) {
+    return this.apiCaller.get<ScryfallCard>(this.scryfallUrl + cardSet + '/' + cardId)
+      .pipe(
+        take(1)
+      )
+  }
+  addCard(scryfallCard: ScryfallCard, numberOwned: string, cardIdForRest: string) {
+    let apiParams = new HttpParams();
+    if (this.specialLayout.indexOf(scryfallCard.layout) == -1) {
+      apiParams = apiParams
+        .set('id', cardIdForRest)
+        .set('numberOwned', numberOwned)
+        .set('name', scryfallCard.name)
+        .set('manaCost', scryfallCard.mana_cost)
+        .set('cmc', scryfallCard.cmc)
+        .set('colorIdentity', scryfallCard.color_identity)
+        .set('layout', scryfallCard.layout)
+        .set('imgUrl', scryfallCard.image_uris['small']!.toString());
+    } else {
+      apiParams = apiParams
+        .set('id', cardIdForRest)
+        .set('numberOwned', numberOwned)
+        .set('name', scryfallCard.name)
+        .set('manaCost', scryfallCard.card_faces[0].mana_cost)
+        .set('cmc', scryfallCard.cmc)
+        .set('colorIdentity', scryfallCard.color_identity)
+        .set('layout', scryfallCard.layout)
+        .set('imgUrl', scryfallCard.card_faces[0].image_uris['small']!.toString());
+    }
+
+    return this.apiCaller.post(this.localHostUrl + 'card', {}, { responseType: 'text', params: apiParams }).pipe(take(1));
   }
 }
 

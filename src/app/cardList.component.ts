@@ -26,14 +26,13 @@ export class cardListComponent {
     this.primengConfig.ripple = true;
   }
   private loadCards() {
-    this.apiCaller.getAllCards().subscribe((json) => {
-      this.cards = json;
-      this.loading = false;
-    },
-      (err) => {
-        this.messageService.add({ severity: 'error', sticky: true, summary: ' error during loading ', detail: 'error when loading page please reload' });
-        this.loading = false;
-      });
+    this.apiCaller.getAllCards().subscribe(
+      {
+        next: (json) => this.cards = json,
+        error: (e) => this.messageService.add({ severity: 'error', sticky: true, summary: ' error during loading ', detail: 'error when loading page please reload' }),
+        complete: () => this.loading = false
+      }
+    );
   }
 
   getScryfallUrl(card: MtgCard): string {
@@ -52,24 +51,44 @@ export class cardListComponent {
     let cardIdForRest = this.cardId + "-" + this.cardSet;
     console.log("Card to modify :" + cardIdForRest + " / " + this.cardNumberOwned)
     this.apiCaller.updateCard(cardIdForRest, this.cardNumberOwned).subscribe(
-      (retval) => {
-        this.messageService.add({ severity: 'success', summary: 'Modification of card done', detail: retval.toString() });
-        this.loading = true;
-        this.loadCards()
-      },
-      (err) => {
-        console.log(err)
-        this.messageService.add({ severity: 'error', summary: 'Card was not modified', detail: err.error });
-      });
+      {
+        next: (retval) => {
+          this.messageService.add({ severity: 'success', summary: 'Modification of card done', detail: retval.toString() });
+          this.loading = true;
+        },
+        error: (e) => {
+          console.log(e)
+          this.messageService.add({ severity: 'error', summary: 'Card was not modified', detail: e.error });
+        },
+        complete: () => this.loadCards()
+      }
+    );
   }
 
-  selectCard(event:any){
+  handleAddClick() {
+    let cardIdForRest = this.cardId + "-" + this.cardSet;
+    this.apiCaller.getCardFromScryfall(this.cardId, this.cardSet, this.cardNumberOwned).subscribe(
+      {
+        next: (v) => {
+          console.log('Do get card from scryfall :' + v.name)
+          this.apiCaller.addCard(v, this.cardNumberOwned, cardIdForRest).subscribe({
+            next: (v) => this.messageService.add({ severity: 'success', summary: 'card added with success', detail: v.toString() }),
+            error: (e) => this.messageService.add({ severity: 'error', summary: 'Card was not added', detail: 'error when trying to add the card' + e.error }),
+            complete: () => { this.loadCards() },
+          })
+        },
+        error: (e) => this.messageService.add({ severity: 'error', summary: 'Card was not added', detail: 'error when calling scryfall' }),
+        complete: () => { },
+      })
+  }
+
+  selectCard(event: any) {
     this.messageService.add({ severity: 'warn', summary: 'card selected', detail: event.data.name });
     this.cardId = event.data.id.split('-')[0];
     this.cardSet = event.data.id.split('-')[1];
     this.cardNumberOwned = event.data.numberOwned;
   }
-  unselectCard(event:any){
+  unselectCard(event: any) {
     this.messageService.add({ severity: 'warn', summary: 'card unselected', detail: event.data.name });
     this.cardId = '';
     this.cardSet = '';

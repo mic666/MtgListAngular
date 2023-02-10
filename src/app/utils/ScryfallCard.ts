@@ -1,13 +1,14 @@
-export class MtgCard {
+export class ScryfallCard {
   constructor(
     public cmc: number,
-    public colorIdentity: string,
+    public color_identity: string,
     public id: string,
     public imgUrl: string,
     public layout: string,
-    public manaCost: string,
+    public mana_cost: string,
     public name: string,
-    public numberOwned: number
+    public card_faces :any,
+    public image_uris:any
   ) {
   }
 }
