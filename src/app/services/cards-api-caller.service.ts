@@ -15,7 +15,7 @@ export class CardsApiCallerService {
   getAllCards() {
     let apiParams = new HttpParams().set('format', 'json');
     return this.apiCaller
-      .get<MtgCard[]>(this.localHostUrl + 'cards', {
+      .get<MtgCard[]>(this.serverUrl + 'cards', {
         observe: 'body',
         responseType: 'json',
         params: apiParams,
@@ -27,7 +27,7 @@ export class CardsApiCallerService {
     let apiParams = new HttpParams().set('numberOwned', numberOwned);
     console.log(apiParams.get('numberOwned'))
     console.log(apiParams.get('numberOwned'))
-    return this.apiCaller.put(this.localHostUrl + 'card/' + cardId, {},
+    return this.apiCaller.put(this.serverUrl + 'card/' + cardId, {},
       { responseType: 'text', params: apiParams }).pipe(take(1))
   }
 
@@ -61,7 +61,7 @@ export class CardsApiCallerService {
         .set('imgUrl', scryfallCard.card_faces[0].image_uris['small']!.toString());
     }
 
-    return this.apiCaller.post(this.localHostUrl + 'card', {}, { responseType: 'text', params: apiParams }).pipe(take(1));
+    return this.apiCaller.post(this.serverUrl + 'card', {}, { responseType: 'text', params: apiParams }).pipe(take(1));
   }
 }
 
