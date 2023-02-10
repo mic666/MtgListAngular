@@ -35,10 +35,9 @@
   </p-tabPanel>
   <p-tabPanel header="Edit Card">
     <div *ngIf="!show">
-      <span class="p-float-label">
-        <input class="p-inputtext-editCard" id="passwordInput" type="text" pInputText [(ngModel)]="password" name="passwordInput">
-        <label for="passwordInput">Password:</label>
-      </span>
+      <h5>Please enter the password to access the edit part:</h5>
+      <p-password [feedback]="false" [(ngModel)]="password"></p-password>
+      &nbsp;
       <p-button label="submit" (onClick)="handlePassword()"></p-button>
     </div>
     <div *ngIf="show">
@@ -55,7 +54,9 @@
           <input class="p-inputtext-editCard" id="cardNumberOwnedInput" type="text" pInputText [(ngModel)]="cardNumberOwned" name="cardNumberOwned">
           <label for="cardNumberOwnedInput">NumberOwned</label>
         </span>
-        <p-button label="Edit card" (onClick)="handleClick()"></p-button><p-button label="add card" (onClick)="handleAddClick()"></p-button>
+        <p-button label="Edit card" (onClick)="handleClick()"></p-button>
+        &nbsp;
+        <p-button label="add card" (onClick)="handleAddClick()"></p-button>
       </form>
     </div>
   </p-tabPanel>

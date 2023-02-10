@@ -11,6 +11,7 @@ import { TabViewModule } from 'primeng/tabview';
 import {ToastModule} from 'primeng/toast';
 import { FormsModule } from '@angular/forms';
 import {RippleModule} from 'primeng/ripple';
+import {PasswordModule} from 'primeng/password';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import {RippleModule} from 'primeng/ripple';
     TabViewModule,
     ToastModule,
     RippleModule,
+    PasswordModule,
     InputTextModule,
     BrowserAnimationsModule
   ],
