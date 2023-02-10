@@ -7,7 +7,7 @@ import { ScryfallCard } from '../utils/ScryfallCard';
 @Injectable({ providedIn: 'root' })
 export class CardsApiCallerService {
   private serverUrl = 'http://mic66688.synology.me:8080/';
-  private localHostUrl = 'http://localhost:8080/';
+  private localHostUrl = 'http://192.168.50.141:8080/';
   private scryfallUrl = 'https://api.scryfall.com/cards/';
   private specialLayout: Array<string> = ['transform', 'modal_dfc']
   constructor(private apiCaller: HttpClient) { }
@@ -32,7 +32,7 @@ export class CardsApiCallerService {
   }
 
   getCardFromScryfall(cardId: string, cardSet: string, numberOwned: string) {
-    return this.apiCaller.get<ScryfallCard>(this.scryfallUrl + cardSet + '/' + cardId)
+    return this.apiCaller.get<ScryfallCard>(this.serverUrl + cardSet + '/' + cardId)
       .pipe(
         take(1)
       )
