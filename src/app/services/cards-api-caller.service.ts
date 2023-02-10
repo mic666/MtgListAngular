@@ -32,7 +32,7 @@ export class CardsApiCallerService {
   }
 
   getCardFromScryfall(cardId: string, cardSet: string, numberOwned: string) {
-    return this.apiCaller.get<ScryfallCard>(this.serverUrl + cardSet + '/' + cardId)
+    return this.apiCaller.get<ScryfallCard>(this.scryfallUrl + cardSet + '/' + cardId)
       .pipe(
         take(1)
       )
