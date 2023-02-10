@@ -3,6 +3,7 @@ import { MtgCard } from './utils/MtgCard';
 import { Component, ViewChild } from '@angular/core';
 import { Table } from 'primeng/table';
 import { MessageService, PrimeNGConfig } from 'primeng/api';
+import * as hash from 'hash.js';
 
 @Component({
   selector: 'app-root',
@@ -15,11 +16,13 @@ export class cardListComponent {
   displayedColumns: string[] = ['id', 'name'];
   cards: MtgCard[] = [];
   loading: boolean = true;
+  show: boolean = false;
   @ViewChild('dt') dt: Table | undefined;
 
   cardId: string = '';
   cardSet: string = '';
   cardNumberOwned: string = '';
+  password: string = '';
 
   constructor(private apiCaller: CardsApiCallerService, private messageService: MessageService, private primengConfig: PrimeNGConfig) {
     this.loadCards();
@@ -93,5 +96,10 @@ export class cardListComponent {
     this.cardId = '';
     this.cardSet = '';
     this.cardNumberOwned = '';
+  }
+  handlePassword() {
+    let passHash = 'e9507c51897da384d92d3d942e05998b71748ce358f006eef11e25942cd2fea4';//save this outside of code when using real password ^^'
+    let userPassHash = hash.sha256().update(this.password).digest('hex');
+    this.show = (userPassHash == passHash);
   }
 }
