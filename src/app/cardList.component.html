@@ -1,12 +1,13 @@
 <p-toast></p-toast>
 <p-tabView>
   <p-tabPanel header="Card List">
-    <p-table #dt [value]="cards" [rowHover]="true" dataKey="id" [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,50,150,500]"
-      [globalFilterFields]="['id','name']" [loading]="loading" selectionMode="single" (onRowSelect)="selectCard($event)" (onRowUnselect)="unselectCard($event)"
-      [paginator]="true" styleClass="p-datatable-sm">
+    <p-table #dt [value]="cards" [rowHover]="true" dataKey="id" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,50,150,500]"
+      [scrollable]="true" scrollHeight="1080px" [globalFilterFields]="['id','name']" [loading]="loading" selectionMode="single"
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} cards"
+      (onRowSelect)="selectCard($event)" (onRowUnselect)="unselectCard($event)" [paginator]="true" styleClass="p-datatable-sm">
       <ng-template pTemplate="caption">
         <div class="flex">
-          <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(dt)"></button>
+          <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(dt)"></button>&nbsp;
           <span class="p-input-icon-left ml-auto">
             <i class="pi pi-search"></i>
             <input pInputText type="text" (input)="applyFilterGlobal($event, 'contains')" placeholder="Search keyword" />
@@ -43,12 +44,12 @@
     <div *ngIf="show">
       <form>
         <span class="p-float-label">
-          <input class="p-inputtext-editCard" id="cardIdInput" type="text" pInputText [(ngModel)]="cardId" name="cardId">
-          <label for="cardIdInput">Card Id:</label>
-        </span>
-        <span class="p-float-label">
           <input class="p-inputtext-editCard" id="cardSetInput" type="text" pInputText [(ngModel)]="cardSet" name="cardSet">
           <label for="cardSetInput">Card Set:</label>
+        </span>
+        <span class="p-float-label">
+          <input class="p-inputtext-editCard" id="cardIdInput" type="text" pInputText [(ngModel)]="cardId" name="cardId">
+          <label for="cardIdInput">Card Id:</label>
         </span>
         <span class="p-float-label">
           <input class="p-inputtext-editCard" id="cardNumberOwnedInput" type="text" pInputText [(ngModel)]="cardNumberOwned" name="cardNumberOwned">
