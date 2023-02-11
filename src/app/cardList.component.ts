@@ -46,6 +46,7 @@ export class cardListComponent {
   }
   clear(table: Table) {
     table.clear();
+
   }
   applyFilterGlobal($event: any, stringVal: string) {
     this.dt!.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
