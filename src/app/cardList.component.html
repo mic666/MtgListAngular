@@ -3,8 +3,8 @@
   <p-tabPanel header="Card List">
     <p-table #dt [value]="cards" [rowHover]="true" dataKey="id" [rows]="10" [showCurrentPageReport]="true" [rowsPerPageOptions]="[10,50,150,500]"
       [scrollable]="true" scrollHeight="1080px" [globalFilterFields]="['id','name']" [loading]="loading" selectionMode="single"
-      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} cards"
-      (onRowSelect)="selectCard($event)" (onRowUnselect)="unselectCard($event)" [paginator]="true" styleClass="p-datatable-sm">
+      currentPageReportTemplate="Showing {first} to {last} of {totalRecords} cards" (onRowSelect)="selectCard($event)" (onRowUnselect)="unselectCard($event)"
+      [paginator]="true" styleClass="p-datatable-sm">
       <ng-template pTemplate="caption">
         <div class="search-box-table">
           <button pButton label="Clear" class="p-button-outlined" icon="pi pi-filter-slash" (click)="clear(dt)"></button>&nbsp;

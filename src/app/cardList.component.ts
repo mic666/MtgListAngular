@@ -46,11 +46,12 @@ export class cardListComponent {
   }
   clear(table: Table) {
     table.clear();
-
   }
+
   applyFilterGlobal($event: any, stringVal: string) {
     this.dt!.filterGlobal(($event.target as HTMLInputElement).value, stringVal);
   }
+
   handleClick() {
     let cardIdForRest = this.cardId + "-" + this.cardSet;
     console.log("Card to modify :" + cardIdForRest + " / " + this.cardNumberOwned)
@@ -102,8 +103,8 @@ export class cardListComponent {
     let passHash = 'e9507c51897da384d92d3d942e05998b71748ce358f006eef11e25942cd2fea4';//save this outside of code when using real password ^^'
     let userPassHash = hash.sha256().update(this.password).digest('hex');
     this.show = (userPassHash == passHash);
-      if(!this.show){
-        this.messageService.add({ severity: 'error', summary: 'Login failure', detail: 'Incorrect password please retry' });
-      }
+    if (!this.show) {
+      this.messageService.add({ severity: 'error', summary: 'Login failure', detail: 'Incorrect password please retry' });
+    }
   }
 }
