@@ -11,10 +11,12 @@ import * as hash from 'hash.js';
   providers: [MessageService],
   styleUrls: ['./cardList.component.css'],
 })
-export class cardListComponent {
+export class CardListComponent {
   title = 'mtgListAngular';
   displayedColumns: string[] = ['id', 'name'];
+
   cards: MtgCard[] = [];
+
   loading: boolean = true;
   show: boolean = false;
   @ViewChild('dt') dt: Table | undefined;

@@ -2,20 +2,20 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 
-import { cardListComponent } from './cardList.component';
+import { CardListComponent } from './CardList.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { TabViewModule } from 'primeng/tabview';
-import {ToastModule} from 'primeng/toast';
+import { ToastModule } from 'primeng/toast';
 import { FormsModule } from '@angular/forms';
-import {RippleModule} from 'primeng/ripple';
-import {PasswordModule} from 'primeng/password';
+import { RippleModule } from 'primeng/ripple';
+import { PasswordModule } from 'primeng/password';
 
 @NgModule({
   declarations: [
-    cardListComponent
+    CardListComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +30,7 @@ import {PasswordModule} from 'primeng/password';
     InputTextModule,
     BrowserAnimationsModule
   ],
-  bootstrap: [cardListComponent]
+  bootstrap: [CardListComponent]
 })
 export class AppModule {
 }
