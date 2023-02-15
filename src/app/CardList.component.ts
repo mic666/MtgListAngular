@@ -115,6 +115,7 @@ export class CardListComponent {
   }
 
   updateCompleteTotalOfCards() {
+     this.totalNumberOfCards=0;
     for (let i = 0; i < this.cards.length;i++) {
       this.totalNumberOfCards += Number(this.cards[i].numberOwned);
     }
