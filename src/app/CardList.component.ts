@@ -109,4 +109,12 @@ export class CardListComponent {
       this.messageService.add({ severity: 'error', summary: 'Login failure', detail: 'Incorrect password please retry' });
     }
   }
+
+  getCompleteTotalOfCards() {
+    let totalNumberOfcards: number = 0;
+    for (let i = 0; i++; i < this.cards.length) {
+      totalNumberOfcards += this.cards[i].numberOwned;
+    }
+    return totalNumberOfcards.toString();
+  }
 }
