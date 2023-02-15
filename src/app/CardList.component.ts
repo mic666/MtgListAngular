@@ -16,6 +16,7 @@ export class CardListComponent {
   displayedColumns: string[] = ['id', 'name'];
 
   cards: MtgCard[] = [];
+  totalNumberOfCards: number = 0;
 
   loading: boolean = true;
   show: boolean = false;
@@ -35,7 +36,10 @@ export class CardListComponent {
       {
         next: (json) => this.cards = json,
         error: (e) => this.messageService.add({ severity: 'error', sticky: true, summary: ' error during loading ', detail: 'error when loading page please reload' }),
-        complete: () => this.loading = false
+        complete: () => {
+          this.loading = false;
+          this.updateCompleteTotalOfCards()
+        }
       }
     );
   }
@@ -110,11 +114,9 @@ export class CardListComponent {
     }
   }
 
-  getCompleteTotalOfCards() {
-    let totalNumberOfcards: number = 0;
-    for (let i = 0; i++; i < this.cards.length) {
-      totalNumberOfcards += this.cards[i].numberOwned;
+  updateCompleteTotalOfCards() {
+    for (let i = 0; i < this.cards.length;i++) {
+      this.totalNumberOfCards += Number(this.cards[i].numberOwned);
     }
-    return totalNumberOfcards.toString();
   }
 }
