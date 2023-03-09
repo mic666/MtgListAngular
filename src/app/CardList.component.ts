@@ -117,7 +117,13 @@ export class CardListComponent {
   updateCompleteTotalOfCards() {
      this.totalNumberOfCards=0;
     for (let i = 0; i < this.cards.length;i++) {
+      if(!isNaN(Number(this.cards[i].numberOwned))){
       this.totalNumberOfCards += Number(this.cards[i].numberOwned);
+      }
+      else{
+        var detailmsg = "card with id :"+ this.cards[i].id+" have incorrect value";
+        this.messageService.add({ severity: 'error', summary: 'count failure for card', detail: detailmsg });
+      }
     }
   }
 }
